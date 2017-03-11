@@ -1,0 +1,29 @@
+---
+import { siteConfig } from "../config";
+import Section from "./Section.astro";
+const { en, fr } = siteConfig;
+---
+
+<Section id="about" titleEn={en.ui.aboutHeading} titleFr={fr.ui.aboutHeading}>
+  <div class="space-y-8 max-w-4xl">
+    <p
+      class="text-lg sm:text-xl md:text-2xl leading-relaxed text-gray-600"
+      data-en={en.aboutMe}
+      data-fr={fr.aboutMe}
+    >
+      {en.aboutMe}
+    </p>
+
+    <div class="pt-4">
+      <div class="flex flex-wrap gap-3">
+        {
+          en.skills.map((skill) => (
+            <span class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-100 text-gray-800 rounded-full text-sm sm:text-base md:text-lg font-medium hover:bg-gray-200 transition-colors duration-200">
+              {skill}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,177 @@
+---
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Education from "../components/Education.astro";
+import Certifications from "../components/Certifications.astro";
+import Languages from "../components/Languages.astro";
+import Recommendations from "../components/Recommendations.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../config";
+import "../styles/global.css";
+
+const { en, fr } = siteConfig;
+const titleEn = `${en.name} - ${en.title}`;
+const titleFr = `${fr.name} - ${fr.title}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content={en.description}
+      data-en={en.description}
+      data-fr={fr.description}
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title data-en={titleEn} data-fr={titleFr}>{titleEn}</title>
+    <script is:inline>
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem("theme");
+        } catch (_) {}
+        var prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = saved ? saved === "dark" : prefersDark;
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
+  </head>
+  <body>
+    <div
+      class="fixed top-4 lg:top-10 right-4 z-[60] flex items-center gap-1 rounded-full bg-white/90 backdrop-blur border border-gray-200 p-1 shadow-sm"
+    >
+      <button
+        type="button"
+        id="theme-toggle"
+        class="theme-btn px-2 py-1 rounded-full text-gray-600 hover:text-gray-900 transition-colors"
+        aria-label="Toggle dark mode"
+      >
+        <svg
+          class="theme-icon-moon w-4 h-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg
+          class="theme-icon-sun w-4 h-4"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+          ></path>
+        </svg>
+      </button>
+
+      <span class="w-px h-5 bg-gray-200"></span>
+
+      <button
+        type="button"
+        data-lang-set="en"
+        class="lang-btn px-3 py-1 rounded-full text-sm font-medium transition-colors"
+        aria-label="Switch to English">EN</button
+      >
+      <button
+        type="button"
+        data-lang-set="fr"
+        class="lang-btn px-3 py-1 rounded-full text-sm font-medium transition-colors"
+        aria-label="Passer en français">FR</button
+      >
+    </div>
+
+    <Header />
+    <section>
+      <Hero />
+      <About />
+      <Projects />
+      <Experience />
+      <Education />
+      <Certifications />
+      <Languages />
+      <Recommendations />
+      <Contact />
+    </section>
+    <Footer />
+
+    <script>
+      function applyLang(lang: string) {
+        const isFr = lang === "fr";
+        document.documentElement.lang = lang;
+        document.querySelectorAll<HTMLElement>("[data-en]").forEach((el) => {
+          if (el.tagName === "META") return;
+          el.textContent = isFr ? el.dataset.fr ?? el.dataset.en : el.dataset.en;
+        });
+        const meta = document.querySelector<HTMLMetaElement>(
+          'meta[name="description"]'
+        );
+        if (meta) {
+          meta.content = isFr
+            ? (meta.dataset.fr ?? meta.dataset.en ?? "")
+            : (meta.dataset.en ?? "");
+        }
+        document.querySelectorAll<HTMLButtonElement>(".lang-btn").forEach((b) => {
+          const active = b.dataset.langSet === lang;
+          b.classList.toggle("bg-gray-900", active);
+          b.classList.toggle("text-white", active);
+          b.classList.toggle("text-gray-600", !active);
+        });
+        try {
+          localStorage.setItem("lang", lang);
+        } catch (_) {
+          /* ignore */
+        }
+      }
+
+      document
+        .querySelectorAll<HTMLButtonElement>("[data-lang-set]")
+        .forEach((b) => {
+          b.addEventListener("click", () => applyLang(b.dataset.langSet!));
+        });
+
+      let saved = "en";
+      try {
+        saved = localStorage.getItem("lang") || "en";
+      } catch (_) {
+        saved = "en";
+      }
+      applyLang(saved);
+
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle?.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        try {
+          localStorage.setItem("theme", isDark ? "dark" : "light");
+        } catch (_) {
+          /* ignore */
+        }
+      });
+    </script>
+  </body>
+</html>

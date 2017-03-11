@@ -1,0 +1,468 @@
+@page {
+  margin: 0.4in;
+  size: A4;
+}
+
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8pt;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cv-controls, .cv-back-link, .cv-lang-toggle, .cv-lang-btn, .cv-pdf-btn, .cv-theme-btn {
+    display: none !important;
+  }
+
+  .cv-page {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .cv-profile-img {
+    width: 70pt;
+    height: 70pt;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  h1 { font-size: 14pt; margin: 0 0 2pt 0; font-weight: 700; }
+  .cv-title { font-size: 9pt; margin: 0 0 4pt 0; }
+
+  .cv-header { margin-bottom: 0; }
+  .cv-contact-line { margin-bottom: 1pt; }
+
+  h2 {
+    font-size: 9.5pt;
+    margin: 9pt 0 3pt 0;
+    padding-bottom: 1.5pt;
+    border-bottom: 0.75pt solid #000;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  h3 { font-size: 8.5pt; margin: 0; font-weight: 600; }
+
+  p { font-size: 8pt; line-height: 1.35; margin: 0 0 2pt 0; }
+  li { font-size: 8pt; line-height: 1.3; margin-bottom: 0.5pt; }
+  ul { padding-left: 10pt; margin: 1.5pt 0 3pt 0; }
+
+  .cv-section { }
+  .cv-item { margin-bottom: 1pt; }
+
+  .cv-contact-line { display: inline; }
+  .cv-contact { font-size: 7.5pt; line-height: 1.45; margin-top: 2pt; }
+  .cv-contact a { text-decoration: none; }
+  .cv-contact .sep { margin: 0 3pt; }
+
+  .cv-skills-grid { display: block; }
+
+  .cv-skill-category {
+    margin-bottom: 1pt;
+    break-inside: avoid;
+  }
+
+  .cv-skill-category strong {
+    display: inline;
+    font-size: 7pt;
+    font-weight: 600;
+  }
+
+  .cv-skill-category strong::after { content: ": "; }
+  .cv-skill-category span { font-size: 7pt; }
+
+  .cv-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4pt;
+    margin-bottom: 1pt;
+  }
+
+  .cv-item-header h3 { font-size: 8pt; margin: 0; }
+  .cv-item-header .cv-date { font-size: 6.5pt; white-space: nowrap; }
+  .cv-company { font-size: 7.5pt; }
+
+  .cv-cert-list {
+    margin: 1pt 0 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cv-cert-list li {
+    font-size: 7pt;
+    margin-bottom: 0.3pt;
+  }
+
+  .cv-interests { font-size: 7.5pt; }
+
+  .page-break { page-break-before: always; }
+}
+
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #1a1a1a;
+}
+
+.cv-page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.cv-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.cv-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cv-pdf-btn:hover { opacity: 0.85; }
+.cv-pdf-btn svg { width: 16px; height: 16px; }
+
+.cv-back-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s;
+  margin-right: 4px;
+}
+
+.cv-back-link:hover {
+  color: #1a1a1a;
+}
+
+.cv-lang-toggle {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.cv-lang-btn {
+  padding: 8px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fff;
+  color: #555;
+}
+
+.cv-lang-btn.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+.cv-header { margin-bottom: 28px; }
+
+.cv-header-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.cv-header-info {
+  flex: 1;
+}
+
+.cv-profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.cv-header h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+
+.cv-title {
+  font-size: 16px;
+  color: #555;
+  margin: 0 0 14px 0;
+}
+
+.cv-contact {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.cv-contact a { color: #1a1a1a; }
+.cv-contact-line { display: block; margin-bottom: 2px; }
+.cv-contact .sep { margin: 0 8px; color: #ccc; }
+
+h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 24px 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ddd;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #1a1a1a;
+}
+
+.cv-section { margin-bottom: 0; }
+
+.cv-section > p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.cv-item { margin-bottom: 16px; }
+
+.cv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+.cv-item-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.cv-company {
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+
+.cv-date {
+  font-size: 11px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.cv-item ul {
+  margin: 4px 0 0 0;
+  padding-left: 20px;
+}
+
+.cv-item li {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 3px;
+}
+
+.cv-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 32px;
+}
+
+.cv-skill-category { margin-bottom: 0; }
+
+.cv-skill-category strong {
+  font-size: 12px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 1px;
+  color: #1a1a1a;
+}
+
+.cv-skill-category span {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+  display: block;
+}
+
+.cv-cert-list {
+  margin: 6px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-cert-list li {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 2px;
+}
+
+.cv-cert-list li strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.cv-interests {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.cv-theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fff;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.cv-theme-btn:hover {
+  border-color: #aaa;
+  color: #1a1a1a;
+}
+
+.cv-theme-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cv-theme-sun { display: none; }
+html.dark .cv-theme-sun { display: block; }
+html.dark .cv-theme-moon { display: none; }
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background: #0b0f17;
+  color: #e5e7eb;
+}
+
+html.dark .cv-page {
+  background: #0b0f17;
+}
+
+html.dark .cv-controls {
+  background: transparent;
+}
+
+html.dark .cv-theme-btn,
+html.dark .cv-lang-btn {
+  background: #1f2937;
+  border-color: #374151;
+  color: #9ca3af;
+}
+
+html.dark .cv-lang-btn.active {
+  background: #374151;
+  color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+html.dark .cv-theme-btn:hover {
+  border-color: #6b7280;
+  color: #e5e7eb;
+}
+
+html.dark .cv-back-link { color: #6b7280; }
+html.dark .cv-back-link:hover { color: #e5e7eb; }
+
+html.dark .cv-pdf-btn {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark .cv-skill-category strong,
+html.dark .cv-item-header h3,
+html.dark .cv-cert-list li strong,
+html.dark .cv-contact a {
+  color: #e5e7eb;
+}
+
+html.dark .cv-title,
+html.dark .cv-company,
+html.dark .cv-contact,
+html.dark .cv-skill-category span {
+  color: #9ca3af;
+}
+
+html.dark .cv-section > p,
+html.dark .cv-item li,
+html.dark .cv-cert-list li,
+html.dark .cv-interests {
+  color: #d1d5db;
+}
+
+html.dark .cv-date {
+  color: #6b7280;
+}
+
+html.dark .cv-contact .sep {
+  color: #374151;
+}
+
+html.dark h2 {
+  border-bottom-color: #374151;
+}
+
+html.dark .cv-item li,
+html.dark .cv-section > p,
+html.dark .cv-interests,
+html.dark .cv-skill-category span {
+  transition: color 0.3s ease;
+}
+
+html.dark .cv-pdf-btn,
+html.dark .cv-theme-btn,
+html.dark .cv-lang-btn {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

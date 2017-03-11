@@ -1,0 +1,67 @@
+---
+import { siteConfig } from "../config";
+import Section from "./Section.astro";
+const { en, fr } = siteConfig;
+const hasEducation = en.education && en.education.length > 0;
+---
+
+{
+  hasEducation && (
+    <Section
+      id="education"
+      titleEn={en.ui.educationHeading}
+      titleFr={fr.ui.educationHeading}
+    >
+      <div class="space-y-8">
+        {en.education.map((edu, index) => {
+          const frEdu = fr.education[index];
+          return (
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-5 md:p-6 hover:shadow-md transition-shadow duration-300">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
+                <div>
+                  <h3
+                    class="text-lg sm:text-xl font-semibold text-gray-900"
+                    data-en={edu.degree}
+                    data-fr={frEdu.degree}
+                  >
+                    {edu.degree}
+                  </h3>
+                  <p
+                    class="text-base sm:text-lg"
+                    style={`color: ${siteConfig.accentColor}`}
+                    data-en={edu.school}
+                    data-fr={frEdu.school}
+                  >
+                    {edu.school}
+                  </p>
+                </div>
+                <span
+                  class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0"
+                  data-en={edu.dateRange}
+                  data-fr={frEdu.dateRange}
+                >
+                  {edu.dateRange}
+                </span>
+              </div>
+
+              <ul class="space-y-2">
+                {edu.achievements.map((achievement, aIdx) => (
+                  <li class="flex items-start">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 mr-3 flex-shrink-0" />
+                    <span
+                      class="text-sm sm:text-base text-gray-600"
+                      data-en={achievement}
+                      data-fr={frEdu.achievements[aIdx]}
+                    >
+                      {achievement}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </Section>
+  )
+}

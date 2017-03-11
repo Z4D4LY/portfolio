@@ -1,0 +1,89 @@
+---
+import { siteConfig } from "../config";
+import Section from "./Section.astro";
+const { en, fr } = siteConfig;
+const hasCertifications = en.certifications && en.certifications.length > 0;
+---
+
+{
+  hasCertifications && (
+    <Section
+      id="certifications"
+      titleEn={en.ui.certificationsHeading}
+      titleFr={fr.ui.certificationsHeading}
+    >
+      <div class="space-y-4">
+        {
+          en.certifications.map((cert, index) => {
+            const frCert = fr.certifications[index];
+            const issuerEl = cert.url ? (
+              <a
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-base sm:text-lg hover:underline"
+                style={`color: ${siteConfig.accentColor}`}
+              >
+                {cert.issuer}
+              </a>
+            ) : (
+              <p
+                class="text-base sm:text-lg"
+                style={`color: ${siteConfig.accentColor}`}
+              >
+                {cert.issuer}
+              </p>
+            );
+            return (
+              <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-5 md:p-6 hover:shadow-md transition-shadow duration-300 flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                  style={`background-color: ${siteConfig.accentColor}1a; color: ${siteConfig.accentColor}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l9 -11" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg sm:text-xl font-semibold text-gray-900">
+                    {cert.name}
+                  </h3>
+                  {cert.issuer && issuerEl}
+                  {
+                    cert.date && (
+                      <p
+                        class="text-xs sm:text-sm text-gray-500 mt-0.5"
+                        data-en={`${en.ui.issued} ${cert.date}`}
+                        data-fr={`${fr.ui.issued} ${frCert.date}`}
+                      >
+                        {en.ui.issued} {cert.date}
+                      </p>
+                    )
+                  }
+                  {
+                    cert.description && (
+                      <p class="text-xs sm:text-sm text-gray-500 mt-1">
+                        {cert.description}
+                      </p>
+                    )
+                  }
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </Section>
+  )
+}

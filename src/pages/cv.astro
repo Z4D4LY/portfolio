@@ -1,0 +1,230 @@
+---
+import { siteConfig } from "../config";
+import "../styles/cv.css";
+
+const { en, fr } = siteConfig;
+const lang = "en";
+const cv = en;
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={cv.description} />
+    <title>{cv.name} - {cv.ui.cvHeading}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      (function () {
+        var saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (_) {}
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = saved ? saved === "dark" : prefersDark;
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="cv-page">
+      <div class="cv-controls">
+        <a href="/portfolio/" class="cv-back-link">&larr; {cv.ui.cvBack}</a>
+        <button type="button" class="cv-pdf-btn" id="pdf-btn" data-en={en.ui.cvPdf} data-fr={fr.ui.cvPdf}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M12 11v6"/><path d="M9 14h3"/></svg>
+          {cv.ui.cvPdf}
+        </button>
+        <div class="cv-lang-toggle">
+          <button type="button" class="cv-lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="cv-lang-btn" data-lang="fr">FR</button>
+        </div>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="cv-theme-btn"
+          aria-label="Toggle dark mode"
+        >
+          <svg class="cv-theme-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="cv-theme-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        </button>
+      </div>
+
+      <!-- Header -->
+      <div class="cv-header">
+        <div class="cv-header-inner">
+          <div class="cv-header-info">
+            <h1 data-en={en.name} data-fr={fr.name}>{cv.name}</h1>
+            <p class="cv-title" data-en={en.title} data-fr={fr.title}>{cv.title}</p>
+            <div class="cv-contact">
+            <span class="cv-contact-line">
+              <span>{cv.social.email}</span>
+              <span class="sep">|</span>
+                <span data-en={en.contact.phone} data-fr={fr.contact.phone}>{cv.contact.phone}</span>
+                <span class="sep">|</span>
+                <span data-en={en.contact.location} data-fr={fr.contact.location}>{cv.contact.location}</span>
+                <span class="sep">|</span>
+                <span data-en={en.contact.nationality} data-fr={fr.contact.nationality}>{cv.contact.nationality}</span>
+              </span>
+              <span class="cv-contact-line">
+                <a href={en.social.linkedin} target="_blank" rel="noopener noreferrer" data-en={en.social.linkedin} data-fr={fr.social.linkedin}>{en.social.linkedin}</a>
+                <span class="sep">|</span>
+                <a href={en.social.github} target="_blank" rel="noopener noreferrer" data-en={en.social.github} data-fr={fr.social.github}>{en.social.github}</a>
+                <span class="sep">|</span>
+                <span data-en={en.contact.remote} data-fr={fr.contact.remote}>{cv.contact.remote}</span>
+              </span>
+            </div>
+          </div>
+          <img src="/portfolio/profile.jpg" alt="Amine Sadali" class="cv-profile-img" />
+        </div>
+      </div>
+
+      <!-- Professional Summary -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvProfile} data-fr={fr.ui.cvProfile}>{cv.ui.cvProfile}</h2>
+        <p data-en={en.profile} data-fr={fr.profile}>{cv.profile}</p>
+      </div>
+
+      <!-- Skills -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvSkillsHeading} data-fr={fr.ui.cvSkillsHeading}>{cv.ui.cvSkillsHeading}</h2>
+        <div class="cv-skills-grid">
+          <div class="cv-skill-category">
+            <strong data-en={en.ui.cvFrontend} data-fr={fr.ui.cvFrontend}>{cv.ui.cvFrontend}</strong>
+            <span data-en={en.cvSkills.frontend.join(", ")} data-fr={fr.cvSkills.frontend.join(", ")}>{cv.cvSkills.frontend.join(", ")}</span>
+          </div>
+          <div class="cv-skill-category">
+            <strong data-en={en.ui.cvBackend} data-fr={fr.ui.cvBackend}>{cv.ui.cvBackend}</strong>
+            <span data-en={en.cvSkills.backend.join(", ")} data-fr={fr.cvSkills.backend.join(", ")}>{cv.cvSkills.backend.join(", ")}</span>
+          </div>
+          <div class="cv-skill-category">
+            <strong data-en={en.ui.cvDevops} data-fr={fr.ui.cvDevops}>{cv.ui.cvDevops}</strong>
+            <span data-en={en.cvSkills.devops.join(", ")} data-fr={fr.cvSkills.devops.join(", ")}>{cv.cvSkills.devops.join(", ")}</span>
+          </div>
+          <div class="cv-skill-category">
+            <strong data-en={en.ui.cvAiMl} data-fr={fr.ui.cvAiMl}>{cv.ui.cvAiMl}</strong>
+            <span data-en={en.cvSkills.aiMl.join(", ")} data-fr={fr.cvSkills.aiMl.join(", ")}>{cv.cvSkills.aiMl.join(", ")}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvExperience} data-fr={fr.ui.cvExperience}>{cv.ui.cvExperience}</h2>
+        {
+          cv.experience.map((exp) => (
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <div>
+                  <h3 data-en={exp.title} data-fr={fr.experience[cv.experience.indexOf(exp)].title}>{exp.title}</h3>
+                  <span class="cv-company" data-en={exp.company} data-fr={fr.experience[cv.experience.indexOf(exp)].company}>{exp.company}</span>
+                </div>
+                <span class="cv-date" data-en={exp.dateRange} data-fr={fr.experience[cv.experience.indexOf(exp)].dateRange}>{exp.dateRange}</span>
+              </div>
+              <ul>
+                {exp.bullets.map((bullet, i) => (
+                  <li key={i} data-en={bullet} data-fr={fr.experience[cv.experience.indexOf(exp)].bullets[i]}>{bullet}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Education -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvEducation} data-fr={fr.ui.cvEducation}>{cv.ui.cvEducation}</h2>
+        {
+          cv.education.map((edu) => (
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <div>
+                  <h3 data-en={edu.degree} data-fr={fr.education[cv.education.indexOf(edu)].degree}>{edu.degree}</h3>
+                  <span class="cv-company" data-en={edu.school} data-fr={fr.education[cv.education.indexOf(edu)].school}>{edu.school}</span>
+                </div>
+                <span class="cv-date" data-en={edu.dateRange} data-fr={fr.education[cv.education.indexOf(edu)].dateRange}>{edu.dateRange}</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Certifications -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvCertifications} data-fr={fr.ui.cvCertifications}>{cv.ui.cvCertifications}</h2>
+        <ul class="cv-cert-list">
+          {
+            cv.certifications.map((cert) => (
+              <li data-en={`${cert.name} — ${cert.issuer} (${cert.date})`} data-fr={`${fr.certifications[cv.certifications.indexOf(cert)].name} — ${fr.certifications[cv.certifications.indexOf(cert)].issuer} (${fr.certifications[cv.certifications.indexOf(cert)].date})`}>
+                <strong data-en={cert.name} data-fr={fr.certifications[cv.certifications.indexOf(cert)].name}>{cert.name}</strong>
+                {" — "}
+                <span data-en={cert.issuer} data-fr={fr.certifications[cv.certifications.indexOf(cert)].issuer}>{cert.issuer}</span>
+                {" ("}
+                <span data-en={cert.date} data-fr={fr.certifications[cv.certifications.indexOf(cert)].date}>{cert.date}</span>
+                {")"}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Languages -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvLanguages} data-fr={fr.ui.cvLanguages}>{cv.ui.cvLanguages}</h2>
+        <p>
+          {cv.languages.map((lang, i) => (
+            <span key={i}>
+              <strong data-en={lang.name} data-fr={fr.languages[i].name}>{lang.name}</strong>
+              {": "}
+              <span data-en={lang.level} data-fr={fr.languages[i].level}>{lang.level}</span>
+              {i < cv.languages.length - 1 ? <span class="sep"> | </span> : ""}
+            </span>
+          ))}
+        </p>
+      </div>
+
+      <!-- Interests -->
+      <div class="cv-section">
+        <h2 data-en={en.ui.cvInterests} data-fr={fr.ui.cvInterests}>{cv.ui.cvInterests}</h2>
+        <p class="cv-interests" data-en={en.interests.join(" · ")} data-fr={fr.interests.join(" · ")}>{cv.interests.join(" · ")}</p>
+      </div>
+    </div>
+
+    <script>
+      function applyLang(lang) {
+        const isFr = lang === "fr";
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-en]").forEach((el) => {
+          if (el.tagName === "META") return;
+          el.textContent = isFr ? el.dataset.fr ?? el.dataset.en : el.dataset.en;
+        });
+        document.querySelectorAll(".cv-lang-btn").forEach((b) => {
+          b.classList.toggle("active", b.dataset.lang === lang);
+        });
+        try { localStorage.setItem("lang", lang); } catch (_) {}
+      }
+
+      document.querySelectorAll(".cv-lang-btn").forEach((b) => {
+        b.addEventListener("click", () => applyLang(b.dataset.lang));
+      });
+
+      let saved = "en";
+      try { saved = localStorage.getItem("lang") || "en"; } catch (_) {}
+      applyLang(saved);
+
+      document.getElementById("pdf-btn")?.addEventListener("click", () => {
+        window.print();
+      });
+
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle?.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch (_) {}
+      });
+    </script>
+  </body>
+</html>

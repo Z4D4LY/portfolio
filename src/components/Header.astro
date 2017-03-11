@@ -1,0 +1,162 @@
+---
+import { siteConfig } from "../config";
+const { en, fr } = siteConfig;
+
+const hasProjects = en.projects && en.projects.length > 0;
+const hasExperience = en.experience && en.experience.length > 0;
+const hasEducation = en.education && en.education.length > 0;
+const hasCertifications = en.certifications && en.certifications.length > 0;
+const hasLanguages = en.languages && en.languages.length > 0;
+const hasRecommendations = en.recommendations && en.recommendations.length > 0;
+const hasContact = true;
+const hasCV = true;
+---
+
+<header
+  id="header"
+  class="fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-300"
+>
+  <nav class="max-w-7xl mx-auto px-8 py-4">
+    <ul class="flex flex-wrap items-center gap-x-8 gap-y-2 justify-center">
+      <li>
+        <a
+          href="#about"
+          class="text-gray-700 hover:text-black transition-colors font-medium"
+          data-en={en.ui.aboutHeading}
+          data-fr={fr.ui.aboutHeading}
+        >
+          {en.ui.aboutHeading}
+        </a>
+      </li>
+      {
+        hasProjects && (
+          <li>
+            <a
+              href="#projects"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.projectsHeading}
+              data-fr={fr.ui.projectsHeading}
+            >
+              {en.ui.projectsHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasExperience && (
+          <li>
+            <a
+              href="#experience"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.experienceHeading}
+              data-fr={fr.ui.experienceHeading}
+            >
+              {en.ui.experienceHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasEducation && (
+          <li>
+            <a
+              href="#education"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.educationHeading}
+              data-fr={fr.ui.educationHeading}
+            >
+              {en.ui.educationHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasCertifications && (
+          <li>
+            <a
+              href="#certifications"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.certificationsHeading}
+              data-fr={fr.ui.certificationsHeading}
+            >
+              {en.ui.certificationsHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasLanguages && (
+          <li>
+            <a
+              href="#languages"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.languagesHeading}
+              data-fr={fr.ui.languagesHeading}
+            >
+              {en.ui.languagesHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasRecommendations && (
+          <li>
+            <a
+              href="#recommendations"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.recommendationsHeading}
+              data-fr={fr.ui.recommendationsHeading}
+            >
+              {en.ui.recommendationsHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasContact && (
+          <li>
+            <a
+              href="#contact"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.contactHeading}
+              data-fr={fr.ui.contactHeading}
+            >
+              {en.ui.contactHeading}
+            </a>
+          </li>
+        )
+      }
+      {
+        hasCV && (
+          <li>
+            <a
+              href="/portfolio/cv/"
+              class="text-gray-700 hover:text-black transition-colors font-medium"
+              data-en={en.ui.cv}
+              data-fr={fr.ui.cv}
+            >
+              {en.ui.cv}
+            </a>
+          </li>
+        )
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  window.addEventListener("scroll", () => {
+    const header = document.getElementById("header");
+    if (window.scrollY > 100) {
+      header?.classList.add("bg-white/80", "backdrop-blur-sm");
+    } else {
+      header?.classList.remove("bg-white/80", "backdrop-blur-sm");
+    }
+  });
+</script>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

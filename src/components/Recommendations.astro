@@ -1,0 +1,64 @@
+---
+import { siteConfig } from "../config";
+import Section from "./Section.astro";
+const { en, fr } = siteConfig;
+const hasRecommendations = en.recommendations && en.recommendations.length > 0;
+---
+
+{
+  hasRecommendations && (
+    <Section
+      id="recommendations"
+      titleEn={en.ui.recommendationsHeading}
+      titleFr={fr.ui.recommendationsHeading}
+    >
+      <div class="space-y-8">
+        {
+          en.recommendations.map((rec, index) => {
+            const frRec = fr.recommendations[index];
+            return (
+              <div
+                class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-5 md:p-6 hover:shadow-md transition-shadow duration-300 border-l-4"
+                style={`border-left-color: ${siteConfig.accentColor}`}
+              >
+                <div
+                  class="text-4xl leading-none mb-1 font-bold"
+                  style={`color: ${siteConfig.accentColor}`}
+                >
+                  &ldquo;
+                </div>
+                <p
+                  class="text-sm sm:text-base text-gray-600 leading-relaxed"
+                  data-en={rec.quote}
+                  data-fr={frRec.quote}
+                >
+                  {rec.quote}
+                </p>
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                  <p class="text-base sm:text-lg font-semibold text-gray-900">
+                    {rec.name}
+                  </p>
+                  <p
+                    class="text-sm"
+                    style={`color: ${siteConfig.accentColor}`}
+                    data-en={rec.title}
+                    data-fr={frRec.title}
+                  >
+                    {rec.title}
+                  </p>
+                  <p
+                    class="text-xs sm:text-sm text-gray-500 mt-1"
+                    data-en={`${rec.relationship} · ${rec.date}`}
+                    data-fr={`${frRec.relationship} · ${frRec.date}`}
+                  >
+                    {rec.relationship} &middot; {rec.date}
+                  </p>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </Section>
+  )
+}

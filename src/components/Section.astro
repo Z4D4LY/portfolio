@@ -1,0 +1,21 @@
+---
+import { siteConfig } from "../config";
+const { id, titleEn, titleFr } = Astro.props;
+---
+
+<section id={id} class="p-8 sm:p-12 md:p-16 lg:p-24">
+  <h2
+    class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900"
+    data-en={titleEn}
+    data-fr={titleFr}
+  >
+    {titleEn}
+  </h2>
+  <div
+    class="w-[75px] h-[5px] mt-2 rounded-full"
+    style={`background-color: ${siteConfig.accentColor}`}
+  />
+  <div class="mt-8 lg:mt-12">
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import { siteConfig } from "../config";
+import Section from "./Section.astro";
+const { en, fr } = siteConfig;
+const hasLanguages = en.languages && en.languages.length > 0;
+---
+
+{
+  hasLanguages && (
+    <Section
+      id="languages"
+      titleEn={en.ui.languagesHeading}
+      titleFr={fr.ui.languagesHeading}
+    >
+      <div class="flex flex-wrap gap-4">
+        {
+          en.languages.map((lang, index) => {
+            const frLang = fr.languages[index];
+            return (
+              <div class="bg-white rounded-lg shadow-sm border border-gray-100 px-5 py-4 min-w-[160px]">
+                <span
+                  class="block text-base sm:text-lg font-semibold text-gray-900"
+                  data-en={lang.name}
+                  data-fr={frLang.name}
+                >
+                  {lang.name}
+                </span>
+                <span
+                  class="block text-sm text-gray-500 mt-1"
+                  data-en={lang.level}
+                  data-fr={frLang.level}
+                >
+                  {lang.level}
+                </span>
+              </div>
+            );
+          })
+        }
+      </div>
+    </Section>
+  )
+}
